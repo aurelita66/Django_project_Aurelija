@@ -5,6 +5,5 @@ class AutoservisasConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'autoservisas'
 
-
-def ready(self):
-    import autoservisas.signals
+    def ready(self):
+        from .signals import create_profile

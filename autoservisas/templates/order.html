@@ -50,7 +50,7 @@
             <tbody>
                 {% for eilute in uzsakymas.uzsakymoeilute_set.all %}
                     <tr>
-                        <td>{{ eilute.paslauga }}</td>
+                        <td>{{ eilute.paslauga.pavadinimas }}</td>
                         <td>{{ eilute.kiekis }}</td>
                         <td>{{ eilute.paslauga.kaina }} &euro;</td>
                         <td>{{ eilute.skaiciuoti_paslaugu_kaina }} &euro;</td>
