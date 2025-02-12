@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Užsakymo informacija</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-text"><b>Data:</b> {{ uzsakymas.date }}</h4>
+            <h4 class="card-text"><b>Statusas:</b>
+                {% if uzsakymas.statusas == 'p' %}
+                    Priimtas
+                {% elif uzsakymas.statusas == 'v' %}
+                    Vykdomas
+                {% else %}
+                    Atliktas
+                {% endif %}
+            </h4>
+            <h4 class="card-text"><b>Automobilis:</b> {{ uzsakymas.masina.reg_numeris }}
+                {{ uzsakymas.masina.modelis }}</h4>
+            <h4 class="card-text"><b>Klientas:</b> {{ uzsakymas.masina.klientas.vardas }}
+                {{ uzsakymas.masina.klientas.pavarde }}
+              {{ uzsakymas.masina.klientas.tel_numeris }}</h4>
+            <h4 class="card-text"><b>VIN kodas:</b> {{ uzsakymas.masina.vin_kodas }}</h4>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h2>Mokėjimo informacija</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Paslauga</th>
+                    <th>Kiekis</th>
+                    <th>Kaina</th>
+                    <th>Suma</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for eilute in uzsakymas.uzsakymoeilute_set.all %}
+                    <tr>
+                        <td>{{ eilute.paslauga }}</td>
+                        <td>{{ eilute.kiekis }}</td>
+                        <td>{{ eilute.paslauga.kaina }} &euro;</td>
+                        <td>{{ eilute.skaiciuoti_paslaugu_kaina }} &euro;</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                  <td colspan="3" style="text-align: right; font-weight: bold;">Iš viso:</td>
+                  <td>{{ uzsakymas.skaiciuoti_pilna_kaina }} &euro;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+                <hr/>
+                {% if user.is_authenticated %}
+                        <div><h5>Palikite komentarą apie užsakymą:</h5>
+                        <form method="post">
+                        {% csrf_token %}
+                        {{ form.content }}<div>
+                    <input type="submit" class="btn btn-outline-success btn-sm" value="Išsaugoti komentarą"/>
+                </div>
+                </form>
+                </div>
+                {% endif %}
+                <hr/>
+                {% for uzsakymasreview in uzsakymas.uzsakymasreview_set.all %}
+                    <small><b>{{ uzsakymasreview.reviewer }}</b> <em>{{ uzsakymasreview.date_created }}</em></small>
+                    <p class="bg-light">{{ uzsakymasreview.content }}</p>
+                <hr/>
+                {% endfor %}
+                {% if not uzsakymas.uzsakymasreview_set.first %}
+                    <p>Užsakymas komentarų neturi!</p>
+                <hr/>
+                {% endif %}
+{% endblock %}

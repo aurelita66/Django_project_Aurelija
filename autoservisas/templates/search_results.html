@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Paieskos rezultatai</h1>
+<h4>Pagal paieskos ivesti <b><i>{{ query_text }}</i></b> rezultatai:</h4>
+{% if masina_list %}
+<ul>
+    {% for masina in masina_list %}
+        <li>
+            <a href="{% url 'auto-one' masina.id %}">
+                {{ masina.reg_numeris }}
+            </a>
+            {{ masina.klientas.pavarde }} {{ masina.klientas.vardas }}
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Pagal jusu ivesti nieko nerasta!</p>
+{% endif %}
+{% endblock %}

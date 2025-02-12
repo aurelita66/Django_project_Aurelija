@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block title %}
+    <title>Klaipėdos autoservisas</title>
+    {% endblock %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- Add additional CSS in static file -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <!-- Navigation -->
+
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-light static-top mb-5 shadow"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'index_nm' %}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+               class="bi bi-taxi-front" viewBox="0 0 16 16">
+              <path d="M4.862 5.276 3.906 7.19a.51.51 0 0 0
+              .497.731c.91-.073 2.35-.17 3.597-.17s2.688.097 3.597.17a.51.51 0 0 0
+              .497-.731l-.956-1.913A.5.5 0 0 0 10.691 5H5.309a.5.5 0 0 0-.447.276M4 10a1 1 0 1 1-2 0 1 1 0 0 1 2
+              0m10 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-9 0a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1"/>
+              <path d="M6 1a1 1 0 0 0-1 1v1h-.181A2.5 2.5 0 0 0 2.52 4.515l-.792
+              1.848a.8.8 0 0 1-.38.404c-.5.25-.855.715-.965 1.262L.05 9.708a2.5 2.5 0 0 0-.049.49v.413c0 .814.39 1.543
+              1 1.997V14.5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1.338c1.292.048 2.745.088 4
+              .088s2.708-.04 4-.088V14.5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1.892c.61-.454 1-1.183
+              1-1.997v-.413q0-.248-.049-.49l-.335-1.68a1.8 1.8 0 0 0-.964-1.261.8.8 0 0 1-.381-.404l-.792-1.848A2.5 2.5
+              0 0 0 11.181 3H11V2a1 1 0 0 0-1-1zM4.819 4h6.362a1.5 1.5 0 0 1 1.379.91l.792 1.847a1.8 1.8 0 0 0
+              .853.904c.222.112.381.32.43.564l.336 1.679q.03.146.029.294v.413a1.48 1.48 0 0 1-1.408
+              1.484c-1.555.07-3.786.155-5.592.155s-4.037-.084-5.592-.155A1.48 1.48 0 0 1 1
+              10.611v-.413q0-.148.03-.294l.335-1.68a.8.8 0 0 1 .43-.563c.383-.19.685-.511.853-.904l.792-1.848A1.5 1.5 0
+              0 1 4.82 4Z"/>
+          </svg>
+          Klaipėdos autoservisas!</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user-profile' %}">
+                 <svg class="bi bi-person"
+                         width="1.5em"
+                         height="1.5em"
+                         viewBox="0 0 16 16"
+                         fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1
+                            1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168
+                            1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM8
+                            7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0z" clip-rule="evenodd"/>
+                 </svg>
+                 {{ user.username }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'my-orders' %}">Mano užsakymai</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">Prisijungti</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}?next={{ request.path }}">Registruotis</a>
+            </li>
+          {% endif %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'index_nm' %}">Pradžia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'autos-all' %}">Automobiliai</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'orders-all' %}">Užsakymai</a>
+            </li>
+          </ul>
+
+          <form
+            class="form-inline my-2 my-lg-0"
+            action="{% url 'search_nm' %}"
+            method="get"
+          >
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Paieška"
+              aria-label="Search"
+              name="search_text"
+            />
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">
+              Ieškoti
+            </button>
+          </form>
+          <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit" class="logout-button">Atsijungti</button>
+            </form>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+      {% for message in messages %}
+      <div class="alert {% if message.tags == 'error' %} alert-danger
+                      {% else %} alert-success
+                      {% endif %}"
+         role="alert">
+        {{ message }}
+      </div>
+      {% endfor %}
+    <div class="container">{% block content %}{% endblock %}</div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

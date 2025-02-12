@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Klaipėdos autoservisas</h1>
+<h2>Statistika:</h2>
+<p>Paslaugu kiekis: {{ paslaugu_kiekis }}</p>
+<p>Visu uzsakymu kiekis: {{ visu_uzsakymu_kiekis }}</p>
+<p>Atliktu uzsakymu kiekis: {{ atliktu_uzsakymu_kiekis }}</p>
+<p>Automobiliu kiekis: {{ automobiliu_kiekis }}</p>
+{% if user.username %}
+    <p>Sveiki, {{ user.username }}</p>
+{% else %}
+    <p>Sveiki, svecias</p>
+{% endif %}
+<p>Jus lankotes {{ num_visits }} karta</p>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ user }}</h1>
+<img class="rounded-circle" src="{{ user.profile.picture.url }}" width="50px" height="50px"/>
+<p>Mano turimi užsakymai:</p>
+{% if uzsakymas_list %}
+<ul>
+    {% for uzsakymas in uzsakymas_list %}
+        <li>
+            {{ uzsakymas.id }}
+            <p><a href="{% url 'order-one' uzsakymas.masina.id %}">{{ uzsakymas.masina }}</a></p>
+            <p class="{% if uzsakymas.yra_pradelstas %}text-danger">
+            {% else %}text-success">
+            {% endif %} {{ uzsakymas.grazinimo_terminas }} {{ uzsakymas.get_statusas_display }}</p>
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Jūs neturite užsakymų!</p>
+{% endif %}
+{% endblock %}

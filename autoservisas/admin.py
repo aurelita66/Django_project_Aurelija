@@ -1,10 +1,39 @@
 from django.contrib import admin
-from .models import Gamintojas, Modelis, Klientas, Masina, Paslauga, Uzsakymas, UzsakymoEilute
+from .models import (Gamintojas, Modelis, Klientas, Masina, Paslauga, Uzsakymas, UzsakymoEilute,
+                     UzsakymasReview, Profile)
+
+
+class UzsakymoEiluteInline(admin.TabularInline):
+    model = UzsakymoEilute
+    extra = 0
+
+
+class UzsakymasAdmin(admin.ModelAdmin):
+    list_display = ('masina', 'uzsakovas', 'date', 'statusas', 'grazinimo_terminas')
+    list_editable = ('uzsakovas', 'statusas', 'grazinimo_terminas')
+    inlines = (UzsakymoEiluteInline,)
+
+
+class MasinaAdmin(admin.ModelAdmin):
+    list_display = ('klientas', 'modelis', 'reg_numeris')
+    list_filter = ('klientas', 'modelis')
+    search_fields = ('reg_numeris', 'modelis__pavadinimas')
+
+
+class PaslaugaAdmin(admin.ModelAdmin):
+    list_display = ('pavadinimas', 'kaina')
+
+
+class ModelisAdmin(admin.ModelAdmin):
+    list_display = ('pavadinimas', 'gamintojas')
+
 
 admin.site.register(Gamintojas)
-admin.site.register(Modelis)
+admin.site.register(Modelis, ModelisAdmin)
 admin.site.register(Klientas)
-admin.site.register(Masina)
-admin.site.register(Uzsakymas)
-admin.site.register(Paslauga)
+admin.site.register(Masina, MasinaAdmin)
+admin.site.register(Paslauga, PaslaugaAdmin)
+admin.site.register(Uzsakymas, UzsakymasAdmin)
 admin.site.register(UzsakymoEilute)
+admin.site.register(UzsakymasReview)
+admin.site.register(Profile)

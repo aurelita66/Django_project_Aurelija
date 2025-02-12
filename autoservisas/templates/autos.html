@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>Automobiliai</h1>
+<p>Visi servise uzregistruoti automobiliai:</p>
+<div class="row">
+    {% for auto_obj in autos %}
+        <div class="col-sm-6 col-md-3 d-flex align-items-stretch">
+            <div class="card mb-4 shadow">
+        {% if auto_obj.cover %}
+            <img class="card-img-top" src="{{ auto_obj.cover.url }}"/>
+        {% else %}
+            <img class="card-img-top" src="{% static 'img/no-image.png' %}"/>
+        {% endif %}
+        <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">{{ auto_obj.modelis }}</h6>
+                    <p class="card-text"><a href="{% url 'auto-one' auto_obj.id %}">{{ auto_obj.reg_numeris }}</a></p>
+                </div>
+           </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% if autos.has_other_pages %}
+    <ul class="pagination pagination-sm">
+        {% for nr in autos.paginator.page_range %}
+            {% if autos.number == nr %}
+                <li class="page-item active">
+                    <a class="page-link">{{ nr }}</a>
+                </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ nr }}">{{ nr }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
