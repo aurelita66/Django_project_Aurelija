@@ -150,11 +150,10 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} profilis'
 
-
-def save(self, *args, **kwargs):
-    super().save(*args, **kwargs)
-    if self.picture.path:
-        img = Image.open(self.picture.path)
-        thumb_size = (150, 150)
-        img.thumbnail(thumb_size)
-        img.save(self.picture.path)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.picture.path:
+            img = Image.open(self.picture.path)
+            thumb_size = (150, 150)
+            img.thumbnail(thumb_size)
+            img.save(self.picture.path)

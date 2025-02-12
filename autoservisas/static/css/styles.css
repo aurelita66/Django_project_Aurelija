@@ -19,13 +19,13 @@ body {
 }
 
 .card {
-    min-height: 450px;
+    min-height: 200px;
     width: 100%;
 }
 .card-body{
-    height: 25%;
+    height: 35%;
 }
 .card img{
-    height: 75%;
+    height: 65%;
     object-fit: contain;
 }

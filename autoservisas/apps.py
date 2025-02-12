@@ -7,4 +7,4 @@ class AutoservisasConfig(AppConfig):
 
 
 def ready(self):
-    from .signals import create_profile
+    import autoservisas.signals

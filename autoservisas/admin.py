@@ -15,9 +15,9 @@ class UzsakymasAdmin(admin.ModelAdmin):
 
 
 class MasinaAdmin(admin.ModelAdmin):
-    list_display = ('klientas', 'modelis', 'reg_numeris')
-    list_filter = ('klientas', 'modelis')
-    search_fields = ('reg_numeris', 'modelis__pavadinimas')
+    list_display = ('klientas', 'modelis__pavadinimas', 'reg_numeris')
+    list_filter = ('klientas', 'modelis__pavadinimas')
+    search_fields = ('reg_numeris', 'modelis__pavadinimas', 'klientas__pavarde')
 
 
 class PaslaugaAdmin(admin.ModelAdmin):

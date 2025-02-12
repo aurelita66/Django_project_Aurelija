@@ -3,10 +3,15 @@
 {% block content %}
     <h1>Užsakymo informacija</h1>
 
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-text"><b>Data:</b> {{ uzsakymas.date }}</h4>
-            <h4 class="card-text"><b>Statusas:</b>
+    <table class="table">
+     <tbody>
+        <tr>
+            <th>Data:</th>
+            <td>{{ uzsakymas.date }}</td>
+        </tr>
+        <tr>
+            <th>Statusas:</th>
+            <td>
                 {% if uzsakymas.statusas == 'p' %}
                     Priimtas
                 {% elif uzsakymas.statusas == 'v' %}
@@ -14,27 +19,34 @@
                 {% else %}
                     Atliktas
                 {% endif %}
-            </h4>
-            <h4 class="card-text"><b>Automobilis:</b> {{ uzsakymas.masina.reg_numeris }}
-                {{ uzsakymas.masina.modelis }}</h4>
-            <h4 class="card-text"><b>Klientas:</b> {{ uzsakymas.masina.klientas.vardas }}
-                {{ uzsakymas.masina.klientas.pavarde }}
-              {{ uzsakymas.masina.klientas.tel_numeris }}</h4>
-            <h4 class="card-text"><b>VIN kodas:</b> {{ uzsakymas.masina.vin_kodas }}</h4>
-        </div>
-    </div>
+            </td>
+        </tr>
+        <tr>
+            <th>Automobilis:</th>
+            <td>{{ uzsakymas.masina.reg_numeris }} {{ uzsakymas.masina.modelis }}</td>
+        </tr>
+        <tr>
+            <th>Klientas:</th>
+            <td>{{ uzsakymas.masina.klientas.vardas }} {{ uzsakymas.masina.klientas.pavarde }}
+                {{ uzsakymas.masina.klientas.tel_numeris }}
+            </td>
+        </tr>
+        <tr>
+            <th>VIN kodas:</th>
+            <td>{{ uzsakymas.masina.vin_kodas }}</td>
+        </tr>
+     </tbody>
+    </table>
 
     <div class="mt-4">
         <h2>Mokėjimo informacija</h2>
         <table class="table">
-            <thead>
                 <tr>
                     <th>Paslauga</th>
                     <th>Kiekis</th>
                     <th>Kaina</th>
                     <th>Suma</th>
                 </tr>
-            </thead>
             <tbody>
                 {% for eilute in uzsakymas.uzsakymoeilute_set.all %}
                     <tr>

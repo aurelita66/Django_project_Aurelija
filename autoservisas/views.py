@@ -137,9 +137,9 @@ def register_user(request):
         return redirect('login')
 
 
-@login_required()
+@login_required
+@csrf_protect
 def get_user_profile(request):
-
     if request.method == 'POST':
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         u_form = UserUpdateForm(request.POST, instance=request.user)
