@@ -82,7 +82,6 @@ def search(request):
     query_text = request.GET.get('search_text')
     # https://docs.djangoproject.com/en/4.2/ref/models/lookups/
     search_results = Masina.objects.filter(
-        Q(klientas__vardas__icontains=query_text) |
         Q(klientas__pavarde__icontains=query_text) |
         Q(modelis__pavadinimas__icontains=query_text) |
         Q(modelis__gamintojas__pavadinimas__icontains=query_text) |

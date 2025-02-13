@@ -107,7 +107,7 @@ class Uzsakymas(models.Model):
         return suma
 
     def __str__(self):
-        return f"{self.statusas} {self.masina} {self.date}"
+        return f"{self.statusas} {self.masina} {self.date}, kaina: {self.skaiciuoti_pilna_kaina}"
 
     class Meta:
         verbose_name = "Uzsakymas"
